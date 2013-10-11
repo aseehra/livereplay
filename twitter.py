@@ -103,7 +103,18 @@ class TwitterSession(object):
 def datetimeFromTwitterTimestamp(stringTime):
     return datetime.strptime(stringTime, '%a %b %d %H:%M:%S +0000 %Y')
 
+def formatTweetForConsole(tweetJson):
+    time = datetimeFromTwitterTimestamp(tweetJson['created_at'])
+    text = tweetJson['text']
+    username = tweetJson['user']['screen_name']
+    formatStr = u'@{} [{}]\n{}'
+    return formatStr.format(username, time.isoformat(' '), text)
+
 if __name__ == '__main__':
     twitter = TwitterSession()
-    twitter.authenticate()
-    print twitter.getHomeRequestsRemaining()
+#    twitter.authenticate()
+#    print twitter.getHomeRequestsRemaining()
+    with open('testTweet.json', 'r') as fp:
+        import json
+        testJson = json.load(fp)
+    print formatTweetForConsole(testJson[0])
