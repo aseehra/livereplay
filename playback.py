@@ -52,9 +52,14 @@ if __name__ == '__main__':
     startTimeStr = raw_input('Start time (UTC) [YYMMDD HHmm]: ')
     startTime = datetimeFromUser(startTimeStr)
     player = LiveReplay(startTime)
-#    player.fetchTweets()
-#    player.saveTweets('/tmp/tweets.json')
-    player.loadTweets('/tmp/tweets.json')
-    print len(player.tweetsJson)
-    raw_input('Ready? [Y]')
-    player.play()
+
+    print('Options: (1) Fetch & save (2) Replay saved.')
+    option = int(input('Option? '))
+    if option == 1:
+        player.fetchTweets()
+        player.saveTweets('/tmp/tweets.json')
+        print len(player.tweetsJson)
+    else:
+        player.loadTweets('/tmp/tweets.json')
+        raw_input('Ready? [Y]')
+        player.play()
