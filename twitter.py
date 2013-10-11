@@ -29,7 +29,7 @@ class TwitterSession(object):
     def authenticate(self):
         authUrl = self._twitterAuth.get_authorize_url(self._requestToken)
         print('Authentication url:\n{}'.format(authUrl))
-        pin = input('Enter pin code: ')
+        pin = raw_input('Enter pin code: ')
         params = {'oauth_verifier': pin}
         try:
             self.session = self._twitterAuth.get_auth_session(
@@ -43,12 +43,12 @@ class TwitterSession(object):
             self.session = None
             raise TwitterAuthenticationError('Invalid verfication key.')
 
-    def getHomeTimeline(self, maxId = None):
+    def getHomeTimelineFragment(self, maxId = None, excludeReplies = True):
         if not self.session:
             raise TwitterAuthenticationError('Twitter not authenticated')
         params = {
                 'count': 200,
-                'exclude_replies': True}
+                'exclude_replies': excludeReplies}
         if maxId:
             params['max_id'] = maxId
         try:
@@ -68,13 +68,13 @@ class TwitterSession(object):
                 raise TwitterError('Twitter error: {}'.format(code))
         return result.json()
 
-    def getFullTimeline(self, beginTime):
+    def getHomeTimeline(self, beginTime):
         ''' Gets full home timeline, through provided datetime '''
         timeline = []
         lastTime = datetime.utcnow()
         lastId = None
         while lastTime > beginTime:
-            timeline.extend(self.getHomeTimeline(lastId))
+            timeline.extend(self.getHomeTimelineFragment(lastId))
             lastTime = datetimeFromTwitterTimestamp(timeline[-1]['created_at'])
             lastId = timeline[-1]['id']
         return timeline

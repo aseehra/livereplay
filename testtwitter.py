@@ -23,12 +23,12 @@ class TestTwitterFetchTimeline(unittest.TestCase):
         cls.twitter.authenticate()
 
     def testTimelineMaxTime(self):
-        result = self.twitter.getFullTimeline(datetime.max)
+        result = self.twitter.getHomeTimeline(datetime.max)
         self.assertEquals(len(result), 0)
 
     def testTimelineYesterday(self):
         now = datetime.utcnow()
         yesterday = now -  timedelta(days = 1)
-        response = self.twitter.getFullTimeline(yesterday)
+        response = self.twitter.getHomeTimeline(yesterday)
         lastDate = datetimeFromTwitterTimestamp(response[-1]['created_at'])
         assert(lastDate <= yesterday)
