@@ -35,11 +35,9 @@ class LiveReplay(object):
 
             now = datetime.utcnow()
             localDelta = now - beginLocal
-            print localDelta
             effectiveTime = self.startTime + localDelta
             if effectiveTime < tweetCreated:
                 sleepDelta = tweetCreated - effectiveTime
-                print sleepDelta.seconds
                 time.sleep(sleepDelta.seconds)
             print(twitter.formatTweetForConsole(tweet))
             print
