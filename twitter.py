@@ -108,7 +108,7 @@ def formatTweetForConsole(tweetJson):
     text = tweetJson['text']
     username = tweetJson['user']['screen_name']
     formatStr = u'@{} [{}]\n{}'
-    return formatStr.format(username, time.isoformat(' '), text)
+    return formatStr.format(username, time.isoformat(' '), text).encode('utf-8')
 
 if __name__ == '__main__':
     twitter = TwitterSession()
