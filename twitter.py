@@ -29,7 +29,7 @@ class TwitterSession(object):
     def authenticate(self):
         authUrl = self._twitterAuth.get_authorize_url(self._requestToken)
         print('Authentication url:\n{}'.format(authUrl))
-        pin = raw_input('Enter pin code: ')
+        pin = input('Enter pin code: ')
         params = {'oauth_verifier': pin}
         try:
             self.session = self._twitterAuth.get_auth_session(

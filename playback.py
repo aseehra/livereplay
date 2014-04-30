@@ -47,7 +47,7 @@ def datetimeFromUser(userStr):
     return datetime.strptime(userStr, formatStr)
 
 if __name__ == '__main__':
-    startTimeStr = raw_input('Start time (UTC) [YYMMDD HHmm]: ')
+    startTimeStr = input('Start time (UTC) [YYMMDD HHmm]: ')
     startTime = datetimeFromUser(startTimeStr)
     player = LiveReplay(startTime)
 
@@ -56,8 +56,8 @@ if __name__ == '__main__':
     if option == 1:
         player.fetchTweets()
         player.saveTweets('/tmp/tweets.json')
-        print len(player.tweetsJson)
+        print(len(player.tweetsJson))
     else:
         player.loadTweets('/tmp/tweets.json')
-        raw_input('Ready? [Y]')
+        input('Ready? [Y]')
         player.play()
