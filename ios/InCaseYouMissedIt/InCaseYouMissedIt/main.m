@@ -10,9 +10,8 @@
 
 #import "ICYAppDelegate.h"
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
   @autoreleasepool {
-      return UIApplicationMain(argc, argv, nil, NSStringFromClass([ICYAppDelegate class]));
+    return UIApplicationMain(argc, argv, nil, NSStringFromClass([ICYAppDelegate class]));
   }
 }
